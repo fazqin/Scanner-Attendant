@@ -11,11 +11,22 @@ export async function POST(request) {
 
     const cleanTicketId = ticketId.trim().toUpperCase();
 
+    // Bersihkan format private key:
+    let privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
+
+    // Hapus tanda kutip luar jika tidak sengaja tersimpan
+    if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
+      privateKey = privateKey.slice(1, -1);
+    }
+
+    // Konversi karakter literal \n menjadi newline asli
+    privateKey = privateKey.replace(/\\n/g, '\n');
+
     // Inisialisasi Auth Google Sheets API
     const auth = new google.auth.GoogleAuth({
       credentials: {
-        client_email: process.env.GOOGLE_CLIENT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+        client_email: process.env.GOOGLE_CLIENT_EMAIL?.trim(),
+        private_key: privateKey,
       },
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
