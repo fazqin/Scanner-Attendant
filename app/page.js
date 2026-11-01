@@ -268,7 +268,7 @@ export default function ScannerPage() {
           <div className="header-status-row">
             <div className="status-badge-online">
               <span className="status-pulse-dot"></span>
-              <span className="status-badge-text">SYSTEM ONLINE / READY</span>
+              <span className="status-badge-text">ARA-KAN NDAR!</span>
             </div>
             {currentTime && (
               <div className="live-clock-pill">
@@ -280,7 +280,7 @@ export default function ScannerPage() {
 
           <div className="title-block">
             <div className="brand-pass-tag">INVESTOR SAHAM PEMULA</div>
-            <h1 className="main-title">CISP SCANNER PASS</h1>
+            <h1 className="main-title">ISP SCANNER PASS</h1>
             <p className="subtitle">Verifikasi Kehadiran & Penukaran Voucher Konsumsi</p>
           </div>
 

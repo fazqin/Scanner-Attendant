@@ -11,18 +11,14 @@ export async function POST(request) {
 
     const cleanTicketId = ticketId.trim().toUpperCase();
 
-    // Bersihkan format private key:
+    // bersih bersih
     let privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
-
-    // Hapus tanda kutip luar jika tidak sengaja tersimpan
     if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
       privateKey = privateKey.slice(1, -1);
     }
-
-    // Konversi karakter literal \n menjadi newline asli
     privateKey = privateKey.replace(/\\n/g, '\n');
 
-    // Inisialisasi Auth Google Sheets API
+    // Inis gugel syits API
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.GOOGLE_CLIENT_EMAIL?.trim(),
@@ -34,7 +30,7 @@ export async function POST(request) {
     const sheets = google.sheets({ version: 'v4', auth });
     const spreadsheetId = process.env.SPREADSHEET_ID;
 
-    // Ambil data tab Ticket dari kolom A sampai G
+    // get data dari sheet Ticket nya
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
       range: 'Ticket!A:G',
@@ -101,7 +97,7 @@ export async function POST(request) {
       range: `Ticket!E${targetRowIndex}:G${targetRowIndex}`,
       valueInputOption: 'USER_ENTERED',
       requestBody: {
-        values: [['Hadir', 'Diambil', nowWIB]],
+        values: [['Hadir', 'Sudah Diambil', nowWIB]],
       },
     });
 
